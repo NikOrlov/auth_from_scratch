@@ -1,0 +1,16 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13.0-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - auth_pgdata:/var/lib/postgresql/data
+    ports:
+      - 5433:${POSTGRES_PORT}
+
+volumes:
+  auth_pgdata:

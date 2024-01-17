@@ -1,0 +1,11 @@
+@router.post(path='/signin'...
+какой тип данных в api-модулях (pydantic всегда или зависит от логики функции)?
+
+про хэши  пользователя:
+мы на сервер отправляем пароль или сразу хэш (в БД хранится хэш) - ?
+
+зачем __init__ в UserORM?
+self.password = self.password = generate_password_hash(password) - ?
+
+
+schemas | models - ?
