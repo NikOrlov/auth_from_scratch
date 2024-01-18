@@ -13,7 +13,7 @@ class JWTService:
                    expire_minutes: int = settings.AUTH_JWT.access_token_expire_minutes) -> bytes:
         to_encode = payload.copy()
         now = datetime.utcnow()
-        expire = now + timedelta(expire_minutes)
+        expire = now + timedelta(minutes=expire_minutes)
         to_encode.update(iat=now,
                          exp=expire)
         encoded = jwt.encode(to_encode, private_key, algorithm)
