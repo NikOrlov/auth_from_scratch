@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException
+from jwt.exceptions import InvalidTokenError
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from models.user import UserCreate, UserInDB
 from models.jwt import TokenInfo
 from services.user_service import UserService, get_user_service
 from services.jwt_service import JWTService, get_jwt_service
 from schemas.entity import User
+
 
 #for getting auth token: 'Authorization: Bearer token'
 http_bearer = HTTPBearer()
@@ -48,6 +50,10 @@ async def auth_self_info(
         jwt_service: JWTService = Depends(get_jwt_service),
 ) -> UserInDB:
     jwt_token = credentials.credentials
-    payload = jwt_service.decode_jwt(jwt_token)
+    try:
+        payload = jwt_service.decode_jwt(jwt_token)
+    except InvalidTokenError as e:
+        raise HTTPException(status_code=401,
+                            detail=f'invalid token error: {e}')
     user = await user_service.get_user_by_login(payload['login'])
     return user
