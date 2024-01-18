@@ -6,7 +6,7 @@ from sqlalchemy import select, and_
 from sqlalchemy.exc import SQLAlchemyError
 from schemas.entity import User
 from db.postgres import get_session
-from models.entity import UserCreate
+from models.user import UserCreate
 
 
 class UserService:
